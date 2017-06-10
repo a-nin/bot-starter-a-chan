@@ -40,9 +40,9 @@ function replyTextMessage($bot, $replyToken, $text) {
 function replyImageMessage($bot, $replyToken, $originalImageUrl, $previewImageUrl) {
   // ImageMessageBuilderの引数は画像URL、サムネイルURL
   $response = $bot->replyMessage($replyToken, new \LINE\LINEBot\MessageBuilder\ImageMessageBuilder($originalImageUrl, $previewImageUrl));
-  if (!response->isSucceeded()) {
+  if (!$response->isSucceeded()) {
     error_log('Failed!'. $response->getHTTPStatus . ' ' . $response->getRawBody());
   }
-  
+
 }
 ?>
