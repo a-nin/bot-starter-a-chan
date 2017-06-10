@@ -50,7 +50,7 @@ function replyImageMessage($bot, $replyToken, $originalImageUrl, $previewImageUr
 // 位置情報を返信。引数はLINEBot、返信先、タイトル、住所、緯度、経度
 function replyLocationMessage($bot, $replyToken, $title, $address, $lat, $lon) {
   // LocationMessgeBuilderの引数はダイアログのタイトル、住所、緯度、経度
-  $response = $bot->replyMessage($replyToken, new \LINE\LINEBot\MessageBuilder\LocationMessgeBuilder($title, $address, $lat, $lon);
+  $response = $bot->replyMessage($replyToken, new \LINE\LINEBot\MessageBuilder\LocationMessgeBuilder($title, $address, $lat, $lon));
   if(!$response->isSucceeded()) {
     error_log('Failed!:'. $response->getHTTPStatus . ' ' . $response->getRawBody());
   }
