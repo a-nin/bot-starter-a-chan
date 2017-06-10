@@ -46,6 +46,7 @@ function replyImageMessage($bot, $replyToken, $originalImageUrl, $previewImageUr
   if (!$response->isSucceeded()) {
     error_log('Failed!'. $response->getHTTPStatus . ' ' . $response->getRawBody());
   }
+}  
 
 // 位置情報を返信。引数はLINEBot、返信先、タイトル、住所、緯度、経度
 function replyLocationMessage($bot, $replyToken, $title, $address, $lat, $lon) {
