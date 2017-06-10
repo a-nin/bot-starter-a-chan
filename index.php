@@ -43,6 +43,6 @@ function replyImageMessage($bot, $replyToken, $originalImageUrl, $previewImageUr
   if (!response->isSucceeded()) {
     error_log('Failed!'. $response->getHTTPStatus . ' ' . $response->getRawBody());
   }
-  //
+  
 }
 ?>
