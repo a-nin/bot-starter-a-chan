@@ -21,18 +21,21 @@ foreach ($events as $event) {
   // replyTextMessage($bot, $event->getReplyToken(), 'TextMessage');
 
   // 画像を返信
-  //replyImageMessage($bot, $event->getReplyToken(), 'https://' . $_SERVER['HTTP_HOST'] . '/img/original.jpg', 'https://' . $_SERVER['HTTP_HOST'] . '/img/preview.jpg');
+  // replyImageMessage($bot, $event->getReplyToken(), 'https://' . $_SERVER['HTTP_HOST'] . '/img/original.jpg', 'https://' . $_SERVER['HTTP_HOST'] . '/img/preview.jpg');
 
   // 位置情報を返信
-  //replyLocationMessage($bot, $event->getReplyToken(), 'LINE', '東京都渋谷区渋谷2-21-1　ヒカリエ27階', 35.659025, 139.703473);
+  // replyLocationMessage($bot, $event->getReplyToken(), 'LINE', '東京都渋谷区渋谷2-21-1　ヒカリエ27階', 35.659025, 139.703473);
 
   // スタンプを返信
-  //replyStickerMessage($bot, $event->getReplyToken(), 1, 1);
+  // replyStickerMessage($bot, $event->getReplyToken(), 1, 1);
 
   // 動画を返信
-  replyVideoMessage($bot, $event->getReplyToken(),
-    'https://' . $_SERVER['HTTP_HOST'] . '/videos/sample.mp4',
-    'https://' . $_SERVER['HTTP_HOST'] . '/videos/sample_preview.jpg');
+  // replyVideoMessage($bot, $event->getReplyToken(),
+  //   'https://' . $_SERVER['HTTP_HOST'] . '/videos/sample.mp4',
+  //   'https://' . $_SERVER['HTTP_HOST'] . '/videos/sample_preview.jpg');
+
+  // オーディオファイルを返信
+  replyAudioMessage($bot, $event->getReplyToken(), 'https://' . $_SERVER['HTTP_HOST'] . '/audios/sample.m4a', 6000);
 }
 
 // テキストを返信。引数はLINEBot、返信先、テキスト
@@ -78,6 +81,15 @@ function replyStickerMessage($bot, $replyToken, $packageId, $stickerId) {
 function replyVideoMessage($bot, $replyToken, $originalContentUrl, $previewImageUrl) {
   // VideoMessageBuilderの引数は動画URL、サムネイルURL
   $response = $bot->replyMessage($replyToken, new \LINE\LINEBot\MessageBuilder\VideoMessageBuilder($originalContentUrl, $previewImageUrl));
+  if (!$response->isSucceeded()) {
+    error_log('Failed!'. $response->getHTTPStatus . ' ' . $response->getRawBody());
+  }
+}
+
+// オーディオファイルを返信。引数はLINEBot、返信先、ファイルのURL、ファイルの再生時間
+function replyAudioMessage($bot, $replyToken, $originalContentUrl, $audioLength) {
+  // AudioMessageBuilderの引数はファイルのURL、ファイルの再生時間
+  $response = $bot->replyMessage($replyToken, new \LINE\LINEBot\MessageBuilder\AudioMessageBuilder($originalContentUrl, $audioLength));
   if (!$response->isSucceeded()) {
     error_log('Failed!'. $response->getHTTPStatus . ' ' . $response->getRawBody());
   }
