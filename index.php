@@ -35,7 +35,8 @@ foreach ($events as $event) {
   //   'https://' . $_SERVER['HTTP_HOST'] . '/videos/sample_preview.jpg');
 
   // オーディオファイルを返信
-  replyAudioMessage($bot, $event->getReplyToken(), 'https://' . $_SERVER['HTTP_HOST'] . '/audios/sample.m4a', 4000);
+  replyAudioMessage($bot, $event->getReplyToken(), 'https://' . $_SERVER['HTTP_HOST'] . '/audios/sample.m4a', 6000);
+
 }
 
 // テキストを返信。引数はLINEBot、返信先、テキスト
