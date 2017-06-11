@@ -30,7 +30,9 @@ foreach ($events as $event) {
   //replyStickerMessage($bot, $event->getReplyToken(), 1, 1);
 
   // 動画を返信
-  replyVideoMessage($bot, $event->getReplyToken(), 'https://' . $SERVER['HTTP_HOST'] . '/videos/sample.mp4', 'https://' . $SERVER['HTTP_HOST'] . '/videos/sample_preview.jpg');
+  replyVideoMessage($bot, $event->getReplyToken(),
+    'https://' . $_SERVER['HTTP_HOST'] . '/videos/sample.mp4',
+    'https://' . $_SERVER['HTTP_HOST'] . '/videos/sample_preview.jpg');
 }
 
 // テキストを返信。引数はLINEBot、返信先、テキスト
