@@ -53,7 +53,7 @@ foreach ($events as $event) {
 
 // Buttonsテンプレートメッセージを返信
 replyButtonsTemplate($bot, $event->getReplyToken(), 'お天気お知らせ - 今日は天気予報は晴れです',
-  'https://' . $_SERVER['HTTP_HOST'] . '/imgs/template.jps',
+  'https://' . $_SERVER['HTTP_HOST'] . '/imgs/template.jpg',
   'お天気お知らせ',
   '今日は天気予報は晴れです',
   new \LINE\LINEBot\TemplateActionBuilder\MessageTemplateActionBuilder ('明日の天気', 'tomorrow'),
