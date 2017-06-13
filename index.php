@@ -80,7 +80,7 @@ foreach ($events as $event) {
 
 // Carouselテンプレートメッセージを返信
 // ダイヤログの配列
-$columnArray = array();
+/** $columnArray = array();
 for($i = 0; $i < 5; $i++) {
   // アクションの配列
   $actionArray = array();
@@ -97,6 +97,35 @@ for($i = 0; $i < 5; $i++) {
   array_push($columnArray, $column);
 }
 replyCarouselTemplate($bot, $event->getReplyToken(), '今後の天気予報', $columnArray);
+*/
+
+// ユーザーから送信された画像ファイルを取得し、サーバーに保存する
+// イベントがImageMessage型であれば
+if ($event instanceof \LINE\LINEBot\Event\MessageEvent\ImageMessage) {
+  // イベントのコンテンツを取得
+  $content = $bot->getMessageContent($event->getMessageId());
+  // コンテンツヘッダーを取得
+  $headers = $content->getHeaders();
+  error_log(var_export($headers, true));
+  // 画像の保存フォルダ
+  $directory_path = 'tmp';
+  // 保存するファイル名
+  $filename = uniqid();
+  // コンテンツの種類を取得
+  $extention = explode('/', $headers['Content-Type'])[1];
+  // 保存先フォルダが存在しなければ
+  if(!file_exists($directory_path)) {
+    // フォルダを作成
+    if(mkdir($directory_path, 0777, true)) {
+      // 権限を変更
+      chmod($directory_path, 0777);
+    }
+  }
+  // 保存先フォルダにコンテンツを保存
+  file_put_contents($directory_path . '/' . $filename . '.' . $extension, content->getRawBody());
+  // 保存したファイルのURLを返信
+  replyTextMessage($bot, $event->getReplyToken(), 'http://' . $_SERVER['HTTP_HOST'] . '/' . $directory_path . '/' . $filename . '.' . $extension);
+}
 
 }
 
