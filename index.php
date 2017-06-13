@@ -134,7 +134,7 @@ $bot->replyMessage($event->getReplyToken(),
   ->add(new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('現在のプロフィールです。'))
   ->add(new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('表示名：' . $profile['displayName']))
   ->add(new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('画像URL：' . $profile['pictureUrl']))
-  ->add(new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('ステータスメッセージ' . $profile['statusMessage']
+  ->add(new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('ステータスメッセージ' . $profile['statusMessage']))
 );
 
 }
