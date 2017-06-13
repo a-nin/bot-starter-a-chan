@@ -59,7 +59,7 @@ foreach ($events as $event) {
 */
 
 // Buttonsテンプレートメッセージを返信
-replyButtonsTemplate($bot, $event->getReplyToken(), 'お天気お知らせ - 今日は天気予報は晴れです',
+/**replyButtonsTemplate($bot, $event->getReplyToken(), 'お天気お知らせ - 今日は天気予報は晴れです',
   'https://' . $_SERVER['HTTP_HOST'] . '/imgs/template.jpg',
   'お天気お知らせ',
   '今日は天気予報は晴れです',
@@ -67,7 +67,15 @@ replyButtonsTemplate($bot, $event->getReplyToken(), 'お天気お知らせ - 今
   new \LINE\LINEBot\TemplateActionBuilder\PostbackTemplateActionBuilder('週末の天気', 'weekend'),
   new \LINE\LINEBot\TemplateActionBuilder\UriTemplateActionBuilder('webで見る', 'http://google.jp')
 );
+*/
 
+// Confirmテンプレートメッセージを返信
+replyConfirmTemplate($bot, $event->getReplyToken(),
+  'webで詳しく見ますか？', //代替テキスト（トーク一覧に表示）
+  'webで詳しく見ますか？', //本文
+  new LINE\LINEBot\TemplateActionBuilder\UriTemplateActionBuilder('見る', 'http://google.jp'),
+  new LINE\LINEBot\TemplateActionBuilder\MessageTemplateActionBuilder('見ない', 'ignore')
+);
 }
 
 // テキストを返信。引数はLINEBot、返信先、テキスト
@@ -158,6 +166,23 @@ function replyButtonsTemplate($bot, $replyToken, $alternativetext, $imageUrl, $t
     $title, $text, $imageUrl, $actionArray)
   );
   $response = $bot->replyMessage($replyToken, $builder);
+  if (!$response->isSucceeded()) {
+    error_log('Failed!'. $response->getHTTPStatus . ' ' . $response->getRawBody());
+  }
+}
+
+// Confirmテンプレートを返信。引数はLINEBot、返信先、代替テキスト、本文、アクション（可変長引数）
+function replyConfirmTemplate($bot, $replyToken, $alternativeText, $text, ...$actions) {
+  $actionArray= array();
+  foreach ($actions as $value) {
+    array_push($actionArray, $value);
+  }
+  $builder = new \LINE\LINEBot\MessageBuilder\TemplateMessageBuilder(
+    $alternativeText,
+ // Confirmテンプレートの引数はテキスト、アクションの配列
+    new \LINE\LINEBot\MessageBuilder\TemplateBuilder\ConfirmTemplateBuilder ($text, $actionArray)
+  );
+  $response = $bot->replyMessage($replyToken(), $builder);
   if (!$response->isSucceeded()) {
     error_log('Failed!'. $response->getHTTPStatus . ' ' . $response->getRawBody());
   }
