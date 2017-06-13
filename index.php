@@ -182,7 +182,7 @@ function replyConfirmTemplate($bot, $replyToken, $alternativeText, $text, ...$ac
  // Confirmテンプレートの引数はテキスト、アクションの配列
     new \LINE\LINEBot\MessageBuilder\TemplateBuilder\ConfirmTemplateBuilder ($text, $actionArray)
   );
-  $response = $bot->replyMessage($replyToken(), $builder);
+  $response = $bot->replyMessage($replyToken, $builder);
   if (!$response->isSucceeded()) {
     error_log('Failed!'. $response->getHTTPStatus . ' ' . $response->getRawBody());
   }
