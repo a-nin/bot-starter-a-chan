@@ -220,7 +220,7 @@ function replyCarouselTemplate($bot, $replyToken, $alternativeText, $columnArray
     // Carouselテンプレートの引数はダイアログの配列
     new \LINE\LINEBot\MessageBuilder\TemplateBuilder\CarouselTemplateBuilder ($columnArray)
   );
-  $response = $bot->$replyMessage($replyToken, $builder);
+  $response = $bot->replyMessage($replyToken, $builder);
   if (!$response->isSucceeded()) {
     error_log('Failed!'. $response->getHTTPStatus . ' ' . $response->getRawBody());
   }
