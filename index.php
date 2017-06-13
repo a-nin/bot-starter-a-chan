@@ -87,13 +87,13 @@ function replyVideoMessage($bot, $replyToken, $originalContentUrl, $previewImage
   }
 }
 
-// オーディオファイルを返信。引数はLINEBot、返信先、ファイルのURL、ファイルの再生時間
+// オーディオファイルを返信。引数はLINEBot、返信先、
+// ファイルのURL、ファイルの再生時間
 function replyAudioMessage($bot, $replyToken, $originalContentUrl, $audioLength) {
   // AudioMessageBuilderの引数はファイルのURL、ファイルの再生時間
   $response = $bot->replyMessage($replyToken, new \LINE\LINEBot\MessageBuilder\AudioMessageBuilder($originalContentUrl, $audioLength));
   if (!$response->isSucceeded()) {
-    error_log('Failed!'. $response->getHTTPStatus . ' ' . $response->getRawBody());
+    error_log('Failed! '. $response->getHTTPStatus . ' ' . $response->getRawBody());
   }
 }
-
 ?>
