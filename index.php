@@ -122,7 +122,7 @@ if ($event instanceof \LINE\LINEBot\Event\MessageEvent\ImageMessage) {
     }
   }
   // 保存先フォルダにコンテンツを保存
-  file_put_contents($directory_path . '/' . $filename . '.' . $extension, content->getRawBody());
+  file_put_contents($directory_path . '/' . $filename . '.' . $extension, $content->getRawBody());
   // 保存したファイルのURLを返信
   replyTextMessage($bot, $event->getReplyToken(), 'http://' . $_SERVER['HTTP_HOST'] . '/' . $directory_path . '/' . $filename . '.' . $extension);
 }
