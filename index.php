@@ -59,7 +59,7 @@ foreach ($events as $event) {
 */
 
 // Buttonsテンプレートメッセージを返信
-/**replyButtonsTemplate($bot, $event->getReplyToken(), 'お天気お知らせ - 今日は天気予報は晴れです',
+/** replyButtonsTemplate($bot, $event->getReplyToken(), 'お天気お知らせ - 今日は天気予報は晴れです',
   'https://' . $_SERVER['HTTP_HOST'] . '/imgs/template.jpg',
   'お天気お知らせ',
   '今日は天気予報は晴れです',
@@ -70,12 +70,13 @@ foreach ($events as $event) {
 */
 
 // Confirmテンプレートメッセージを返信
-replyConfirmTemplate($bot, $event->getReplyToken(),
+/** replyConfirmTemplate($bot, $event->getReplyToken(),
   'webで詳しく見ますか？', //代替テキスト（トーク一覧に表示）
   'webで詳しく見ますか？', //本文
   new LINE\LINEBot\TemplateActionBuilder\UriTemplateActionBuilder('見る', 'http://google.jp'),
   new LINE\LINEBot\TemplateActionBuilder\MessageTemplateActionBuilder('見ない', 'ignore')
 );
+*/
 
 // Carouselテンプレートメッセージを返信
 // ダイヤログの配列
