@@ -76,7 +76,31 @@ replyConfirmTemplate($bot, $event->getReplyToken(),
   new LINE\LINEBot\TemplateActionBuilder\UriTemplateActionBuilder('見る', 'http://google.jp'),
   new LINE\LINEBot\TemplateActionBuilder\MessageTemplateActionBuilder('見ない', 'ignore')
 );
+
+// Carouselテンプレートメッセージを返信
+// ダイヤログの配列
+$columnArray = array();
+for($i = 0; $i < 5; $i++) {
+  // アクションの配列
+  $actionArray = array();
+  array_push($actionArray, new LINE\LINEBot\TemplateActionBuilder\MessageTemplateActionBuilder ('ボタン' . $i . '-' . 1, 'c-' . $i . '-' . 1));
+  array_push($actionArray, new LINE\LINEBot\TemplateActionBuilder\MessageTemplateActionBuilder ('ボタン' . $i . '-' . 2, 'c-' . $i . '-' . 2));
+  array_push($actionArray, new LINE\LINEBot\TemplateActionBuilder\MessageTemplateActionBuilder ('ボタン' . $i . '-' . 3, 'c-' . $i . '-' . 3));
+  $column = new \LINE\LINEBot\MessageTemplateActionBuilder\TemplateBuilder\CarouselColumnTemplateBuilder (
+    ($i + 1) . '日後の天気',
+    '晴れ',
+    'https://' . $_SERVER['HTTP_HOST'] . '/imgs/template.jpg',
+    $actionArray
+  );
+  // 配列に追加
+  array_push($columnArray, $column);
 }
+replyCarouselTemplate($bot, $event->getReplyToken(), '今後の天気予報', $columnArray);
+
+}
+
+
+
 
 // テキストを返信。引数はLINEBot、返信先、テキスト
 function replyTextMessage($bot, $replyToken, $text) {
@@ -183,6 +207,19 @@ function replyConfirmTemplate($bot, $replyToken, $alternativeText, $text, ...$ac
     new \LINE\LINEBot\MessageBuilder\TemplateBuilder\ConfirmTemplateBuilder ($text, $actionArray)
   );
   $response = $bot->replyMessage($replyToken, $builder);
+  if (!$response->isSucceeded()) {
+    error_log('Failed!'. $response->getHTTPStatus . ' ' . $response->getRawBody());
+  }
+}
+
+// Carouselテンプレートを返信。引数はLINEBot、返信先、代替テキスト、ダイヤログの配列
+function replyCarouselTemplate($bot, $replyToken, $alternativeText, $columnArray) {
+  $builder = new \LINE\LINEBot\MessageBuilder\TemplateMessageBuilder(
+    $alternativeText,
+    // Carouselテンプレートの引数はダイアログの配列
+    new \LINE\LINEBot\MessageBuilder\TemplateBuilder\CarouselTemplateBuilder ($columnArray)
+  );
+  $response = $bot->$replyMessage($replyToken, $builder);
   if (!$response->isSucceeded()) {
     error_log('Failed!'. $response->getHTTPStatus . ' ' . $response->getRawBody());
   }
